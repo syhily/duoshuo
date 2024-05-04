@@ -1,4 +1,5 @@
-# DuoShuo
+![Github Poster](design/duoshuo-github-poster.png#gh-light-mode-only)
+![Github Poster](design/duoshuo-github-poster-dark.png#gh-dark-mode-only)
 
 A self-host comment system which in favor of my favourite died social comment solution [多说](https://github.com/duoshuo).
 
@@ -66,3 +67,11 @@ While the backend files are located in the `dist` directory, they are dynamic wi
 
 After building the project, you can execute `npm prune --production` to remove all the dev dependencies.
 The application can be executed by using `npm start`.
+
+## License
+
+The source code of this blog is licensed under the [MIT](./LICENSE) license,
+feel to free to use it without any legal risks.
+
+The font used in logo is Super Peach Font,
+it's free for personal use and commercial use, but I couldn't find the license file.
