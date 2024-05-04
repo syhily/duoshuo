@@ -2,10 +2,33 @@
   "name": "duoshuo",
   "version": "1.0.0",
   "private": true,
+  "keywords": [
+    "duoshuo",
+    "discus",
+    "comment",
+    "bun",
+    "hono",
+    "react"
+  ],
+  "homepage": "https://comment.yufan.me",
+  "bugs": {
+    "url": "https://github.com/syhily/duoshuo/issues",
+    "email": "syhily@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/syhily/duoshuo.git"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Yufan Sheng",
+    "email": "syhily@gmail.com",
+    "url": "https://yufan.me"
+  },
   "type": "module",
   "scripts": {
-    "build": "tsc && vite build",
-    "dev": "vite",
+    "build": "bunx --bun vite build",
+    "dev": "bunx --bun vite",
     "lint": "oxlint --fix && prettier . --write",
     "prepare": "husky",
     "preview": "vite preview"
@@ -28,7 +51,7 @@
     "@vitejs/plugin-react": "^4.2.1",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
-    "oxlint": "^0.3.1",
+    "oxlint": "^0.3.2",
     "prettier": "3.2.5",
     "typescript": "^5.4.5",
     "vite": "^5.2.11"
