@@ -33,6 +33,7 @@ app.use('*', async (c, next) => {
   c.res.headers.append('X-Powered-By', 'Hono');
 });
 
+// This export is mainly used by the @hono/vite-dev-server.
 export default app;
 
 if (isProd) {
