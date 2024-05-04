@@ -7,15 +7,17 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Development files
 node_modules
-dist
-dist-ssr
+build
 *.local
+.husky/_
 
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
 .idea
+!.idea/icon.svg
 .DS_Store
 *.suo
 *.ntvs*
