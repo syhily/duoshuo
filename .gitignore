@@ -10,6 +10,7 @@ lerna-debug.log*
 # Development files
 node_modules
 build
+dist
 *.local
 .husky/_
 
