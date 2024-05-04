@@ -1,8 +1,9 @@
-# Duoshuo
+# DuoShuo
 
 A self-host comment system which in favor of my favourite died social comment solution [多说](https://github.com/duoshuo).
-This is a hobby project which I just want to test the ability of developing full-stack application in JS.
-All the technology stack I choose is the newest one I think.
+
+This is a hobby project which I just want to test the ability of developing full-stack application all in JS.
+All the technology stacks that I choose to use is the newest one I think.
 So I don't promise any stability and backward compatible.
 It's not a production ready project, I don't recommend using it in any projects.
 
@@ -33,3 +34,23 @@ It's not a production ready project, I don't recommend using it in any projects.
 - `server.ts` The entry file of backend.
 - `client.tsx` The entry file of frontend.
 - `index.html` The web page that hosts the web app.
+
+## Development and Deployment
+
+This project separates into two parts, the frontend and the backend.
+The frontend is a React project in CSR mode.
+I don't like SSR and the existing SSR solutions such as Next.js, Remix, Waku are hard to use and complex.
+
+The backend is an API server which is built on top of the Hono.js.
+Which means this application can be easily deployed to any edge runtimes or serverless solutions.
+But for now, it targets to zeabur which has the MySQL runtime internally.
+
+When you want to develop the project.
+Execute the command `npm run dev`, the backend and frontend are serving under the same port `4321` with HMR support.
+
+When you want to build the project, execute the command `npm run build`.
+The frontend files will be built by using Vite and located under the `build` directory, they are static.
+While the backend files are located in the `dist` directory, they are dynamic with the dot env files.
+
+After building the project, you can execute `npm prune --production` to remove all the dev dependencies.
+The application can be executed by using `npm start`.

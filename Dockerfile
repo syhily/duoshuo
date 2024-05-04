@@ -23,6 +23,6 @@ COPY --from=builder --chown=hono:nodejs /app/build /app/build
 COPY --from=builder --chown=hono:nodejs /app/package.json /app/package.json
 
 USER hono
-EXPOSE 3000
+EXPOSE 4321
 
 CMD ["npm", "start"]
