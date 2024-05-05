@@ -27,7 +27,9 @@
   },
   "type": "module",
   "scripts": {
-    "build": "tsc && vite build && rollup -c rollup.config.mjs",
+    "build": "npm run build:client && npm run build:server",
+    "build:client": "tsc && vite build",
+    "build:server": "rollup -c rollup.config.ts --configPlugin typescript",
     "dev": "vite",
     "lint": "oxlint --fix && prettier . --write",
     "prepare": "husky",
