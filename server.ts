@@ -5,12 +5,32 @@ import { serveStatic } from '@hono/node-server/serve-static';
 import { Hono } from 'hono';
 import { z } from 'zod';
 
-import { env } from '@/utils/env';
+import { env, isProd } from '@/utils/env';
 
-const isProd = env.NODE_ENV === 'production';
-let html = readFileSync(isProd ? 'build/index.html' : 'index.html', 'utf8');
+// Create Hono route.
+const app = new Hono();
 
-if (!isProd) {
+// Define your custom routes here.
+// TODO
+
+// Add powered by header.
+app.use('*', async (c, next) => {
+  await next();
+  c.res.headers.append('X-Powered-By', 'Hono');
+});
+
+// Add the static resource here by using the generated _static_routes.json.
+if (isProd()) {
+  const staticRoutes = z.array(z.string()).parse(JSON.parse(readFileSync('build/_static_routes.json', 'utf8')));
+  for (const staticRoute of staticRoutes) {
+    app.use(staticRoute, serveStatic({ root: 'build/' }));
+  }
+}
+
+// Load the frontend html.
+let html = readFileSync(isProd() ? 'build/index.html' : 'index.html', 'utf8');
+
+if (!isProd()) {
   // Inject Vite client code to the HTML.
   // We don't use the injectClientScript in @hono/vite-dev-server because it is buggy.
   html = html.replace(
@@ -30,27 +50,11 @@ if (!isProd) {
   );
 }
 
-// Create Hono route.
-const app = new Hono();
-
-app.use('*', async (c, next) => {
-  await next();
-  c.res.headers.append('X-Powered-By', 'Hono');
-});
-
-// Add the static resource here by using the generated _static_routes.json.
-if (isProd) {
-  const staticRoutes = z.array(z.string()).parse(JSON.parse(readFileSync('build/_static_routes.json', 'utf8')));
-  for (const staticRoute of staticRoutes) {
-    app.use(staticRoute, serveStatic({ root: 'build/' }));
-  }
-}
-
 // Add the frontend endpoint for all the fallback.
-app.use('/assets/*', serveStatic({ root: isProd ? 'build/' : './' })).get('/*', (c) => c.html(html));
+app.use('/assets/*', serveStatic({ root: isProd() ? 'build/' : './' })).get('/*', (c) => c.html(html));
 
 // Start the serving in production.
-if (isProd) {
+if (isProd()) {
   serve({ ...app, port: env.PORT }, (info) => {
     console.log(`Listening on http://localhost:${info.port}`);
   });

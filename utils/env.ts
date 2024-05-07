@@ -1,8 +1,6 @@
 import { createEnv } from '@t3-oss/env-core';
 import { z } from 'zod';
 
-import 'dotenv-flow/config';
-
 const int = z
   .string()
   .transform((s) => Number.parseInt(s, 10))
@@ -38,3 +36,5 @@ export const env = createEnv({
   isServer: typeof window === 'undefined',
   emptyStringAsUndefined: true,
 });
+
+export const isProd = () => env.NODE_ENV === 'production';

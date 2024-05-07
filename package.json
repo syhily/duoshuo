@@ -34,7 +34,7 @@
     "lint": "biome check --apply --use-server . && prettier . --write",
     "prepare": "husky",
     "preview": "vite preview",
-    "start": "NODE_ENV=production node dist/server.js"
+    "start": "NODE_ENV=production node -r dotenv-flow/config dist/server.js"
   },
   "lint-staged": {
     "**/*": [
