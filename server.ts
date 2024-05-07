@@ -1,10 +1,11 @@
 import { readFileSync } from 'node:fs';
 
-import { env } from '@/utils/env/server';
 import { serve } from '@hono/node-server';
 import { serveStatic } from '@hono/node-server/serve-static';
 import { Hono } from 'hono';
 import { z } from 'zod';
+
+import { env } from '@/utils/env';
 
 const isProd = env.NODE_ENV === 'production';
 let html = readFileSync(isProd ? 'build/index.html' : 'index.html', 'utf8');
@@ -50,7 +51,7 @@ app.use('/assets/*', serveStatic({ root: isProd ? 'build/' : './' })).get('/*', 
 
 // Start the serving in production.
 if (isProd) {
-  serve({ ...app, port: 4321 }, (info) => {
+  serve({ ...app, port: env.PORT }, (info) => {
     console.log(`Listening on http://localhost:${info.port}`);
   });
 }

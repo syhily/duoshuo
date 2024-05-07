@@ -3,28 +3,7 @@
   "files": {
     "ignore": ["dist/**/*", "build/**/*", "node_modules/**/*"]
   },
-  "formatter": {
-    "enabled": true,
-    "formatWithErrors": false,
-    "indentStyle": "space",
-    "indentWidth": 2,
-    "lineEnding": "lf",
-    "lineWidth": 120,
-    "attributePosition": "auto"
-  },
-  "organizeImports": { "enabled": true },
-  "linter": { "enabled": true, "rules": { "recommended": true } },
-  "javascript": {
-    "formatter": {
-      "jsxQuoteStyle": "double",
-      "quoteProperties": "asNeeded",
-      "trailingComma": "all",
-      "semicolons": "always",
-      "arrowParentheses": "always",
-      "bracketSpacing": true,
-      "bracketSameLine": false,
-      "quoteStyle": "single",
-      "attributePosition": "auto"
-    }
-  }
+  "formatter": { "enabled": false },
+  "organizeImports": { "enabled": false },
+  "linter": { "enabled": true, "rules": { "recommended": true } }
 }

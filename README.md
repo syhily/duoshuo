@@ -1,7 +1,8 @@
 ![Github Poster](design/duoshuo-github-poster.png#gh-light-mode-only)
 ![Github Poster](design/duoshuo-github-poster-dark.png#gh-dark-mode-only)
 
-A self-host comment system which in favor of my favourite died social comment solution [多说](https://github.com/duoshuo).
+A self-host comment system which in favor of my favourite died social comment
+solution [多说](https://github.com/duoshuo).
 
 This is a hobby project which I just want to test the ability of developing full-stack application all in JS.
 All the technology stacks that I choose to use is the newest one I think.
@@ -26,7 +27,8 @@ I love typed with zod which can pre-check everything before the execution.
 
 ### Common
 
-- `api` The folder that stores our API gateway applications, A.K.A. route handlers or controllers which are written in TS.
+- `api` The folder that stores our API gateway applications, A.K.A. route handlers or controllers which are written in
+  TS.
 - `utils` The folder that stores utility functions.
 
 ### Frontend
@@ -47,6 +49,8 @@ I love typed with zod which can pre-check everything before the execution.
 
 ## Development and Deployment
 
+### Structure
+
 This project separates into two parts, the frontend and the backend.
 The frontend is a React project in CSR mode.
 I don't like SSR, and the existing SSR solutions such as Next.js, Remix, Waku are hard to use and complex.
@@ -64,6 +68,15 @@ While the backend files are located in the `dist` directory, they are dynamic wi
 
 After building the project, you can execute `npm prune --production` to remove all the dev dependencies.
 The application can be executed by using `npm start`.
+
+### Configuration
+
+Almost all the configurations can be configured after the application started except the port and the database.
+It's configured through the environment variables and `.env` files.
+Copy the default `.env.example` file,
+rename it to `.env.local` and `.env.production.local` which will be ignored by the git.
+Change the content as your needs.
+The `.env.local` is used for local development while `.env.production.local` is used for production.
 
 ## License
 
