@@ -1,0 +1,60 @@
+{
+  "version": "5",
+  "dialect": "mysql",
+  "id": "77cafc7f-b2bd-4b36-ac05-e7ff13bd29a0",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "tables": {
+    "duoshuo_comments": {
+      "name": "duoshuo_comments",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "create_time": {
+          "name": "create_time",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "(now())"
+        },
+        "update_time": {
+          "name": "update_time",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "onUpdate": true,
+          "default": "(now())"
+        },
+        "deleted": {
+          "name": "deleted",
+          "type": "bigint unsigned",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": 0
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "duoshuo_comments_id": {
+          "name": "duoshuo_comments_id",
+          "columns": ["id"]
+        }
+      },
+      "uniqueConstraints": {}
+    }
+  },
+  "schemas": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  }
+}

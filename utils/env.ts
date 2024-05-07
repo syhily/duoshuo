@@ -18,6 +18,7 @@ const nullableInt = (num: number) =>
 //   .string()
 //   .refine((s) => s === 'true' || s === 'false')
 //   .transform((s) => s === 'true');
+export const defaultTablePrefix = 'duoshuo_';
 
 export const env = createEnv({
   server: {
@@ -31,7 +32,6 @@ export const env = createEnv({
     MYSQL_USERNAME: z.string(),
     MYSQL_PASSWORD: z.string(),
     MYSQL_DATABASE: z.string(),
-    MYSQL_TABLE_PREFIX: z.string().nullable().default('duoshuo_'),
   },
   runtimeEnv: process.env,
   isServer: typeof window === 'undefined',

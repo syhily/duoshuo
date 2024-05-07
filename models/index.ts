@@ -26,4 +26,8 @@ if (!isProd()) {
   globalForDb.conn = conn;
 }
 
-export const db = drizzle(conn, { schema: schema, mode: 'default' });
+export const db = drizzle(conn, {
+  logger: !isProd(), // Enable the log in development
+  schema: schema,
+  mode: 'default',
+});

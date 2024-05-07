@@ -2,9 +2,10 @@ import type { Config } from 'drizzle-kit';
 
 import 'dotenv-flow/config';
 
-import { env } from '@/utils/env';
+import { defaultTablePrefix, env } from '@/utils/env';
 
 export default {
+  out: './models/migration',
   schema: './models/schema.ts',
   driver: 'mysql2',
   dbCredentials: {
@@ -14,5 +15,7 @@ export default {
     password: env.MYSQL_PASSWORD,
     database: env.MYSQL_DATABASE,
   },
-  tablesFilter: [`${env.MYSQL_TABLE_PREFIX}*`],
+  verbose: true,
+  strict: true,
+  tablesFilter: [`${defaultTablePrefix}*`],
 } satisfies Config;

@@ -7,6 +7,8 @@ import resolve from '@rollup/plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
 import { glob } from 'glob';
 import type { RollupOptions } from 'rollup';
+import { cleandir } from 'rollup-plugin-cleandir';
+import copy from 'rollup-plugin-copy';
 
 // Clean the local dist directory.
 export default {
@@ -31,8 +33,10 @@ export default {
     return id.includes(`${sep}node_modules${sep}`);
   },
   plugins: [
+    cleandir('./dist'),
     typescript({ moduleResolution: 'bundler', tsconfig: 'tsconfig.json' }),
     resolve({ preferBuiltins: true }),
     commonjs({ ignoreDynamicRequires: true, ignore: builtinModules }),
+    copy({ targets: [{ src: 'models/migration/**/*', dest: 'dist/models/migration' }] }),
   ],
 } satisfies RollupOptions;

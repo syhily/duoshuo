@@ -5,6 +5,8 @@ import { serveStatic } from '@hono/node-server/serve-static';
 import { Hono } from 'hono';
 import { z } from 'zod';
 
+import '@/models/migrate';
+
 import { env, isProd } from '@/utils/env';
 
 // Create Hono route.

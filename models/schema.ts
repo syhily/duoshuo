@@ -1,12 +1,12 @@
 import { bigint, mysqlTableCreator, serial, timestamp } from 'drizzle-orm/mysql-core';
 
-import { env } from '@/utils/env';
+import { defaultTablePrefix } from '@/utils/env';
 
 /**
  * Add schema table prefix for sharing the database with other applications.
  * @see https://orm.drizzle.team/docs/goodies#multi-project-schema
  */
-const mysqlTable = mysqlTableCreator((name) => `${env.MYSQL_TABLE_PREFIX}${name}`);
+const mysqlTable = mysqlTableCreator((name) => `${defaultTablePrefix}${name}`);
 
 // Common columns for all the tables used in the duoshuo.
 const commonColumns = {
