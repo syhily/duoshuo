@@ -1,10 +1,11 @@
 import { createEnv } from '@t3-oss/env-core';
 import { z } from 'zod';
 
-const int = z
-  .string()
-  .transform((s) => Number.parseInt(s, 10))
-  .pipe(z.number().int());
+const int = () =>
+  z
+    .string()
+    .transform((s) => Number.parseInt(s, 10))
+    .pipe(z.number().int());
 
 const nullableInt = (num: number) =>
   z
@@ -26,7 +27,7 @@ export const env = createEnv({
 
     // The MySQL configuration, it's the same as the zeabur configuration.
     MYSQL_HOST: z.string(),
-    MYSQL_PORT: int,
+    MYSQL_PORT: int(),
     MYSQL_USERNAME: z.string(),
     MYSQL_PASSWORD: z.string(),
     MYSQL_DATABASE: z.string(),

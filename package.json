@@ -30,6 +30,8 @@
     "build": "npm run build:client && npm run build:server",
     "build:client": "tsc && vite build",
     "build:server": "rollup -c rollup.config.ts --configPlugin typescript",
+    "db:push": "drizzle-kit push:mysql",
+    "db:studio": "drizzle-kit studio",
     "dev": "vite",
     "lint": "biome check --apply --use-server . && prettier . --write",
     "prepare": "husky",
