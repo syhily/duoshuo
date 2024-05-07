@@ -28,9 +28,6 @@ I love typed with zod which can pre-check everything before the execution.
 
 - `api` The folder that stores our API gateway applications, A.K.A. route handlers or controllers which are written in TS.
 - `utils` The folder that stores utility functions.
-  - `common.ts` Utility functions for both backend and frontend.
-  - `backend.ts` Utility functions for backend specifically.
-  - `frontend.tsx` Utility functions for frontend specifically.
 
 ### Frontend
 

@@ -1,11 +1,12 @@
-import { readFileSync } from 'fs';
+import { readFileSync } from 'node:fs';
 
+import { env } from '@/utils/env/server';
 import { serve } from '@hono/node-server';
 import { serveStatic } from '@hono/node-server/serve-static';
 import { Hono } from 'hono';
 import { z } from 'zod';
 
-const isProd = process.env['NODE_ENV'] === 'production';
+const isProd = env.NODE_ENV === 'production';
 let html = readFileSync(isProd ? 'build/index.html' : 'index.html', 'utf8');
 
 if (!isProd) {
@@ -28,7 +29,8 @@ if (!isProd) {
   );
 }
 
-const app = new Hono().use('/assets/*', serveStatic({ root: isProd ? 'build/' : './' }));
+// Create Hono route.
+const app = new Hono();
 
 app.use('*', async (c, next) => {
   await next();
@@ -38,13 +40,13 @@ app.use('*', async (c, next) => {
 // Add the static resource here by using the generated _static_routes.json.
 if (isProd) {
   const staticRoutes = z.array(z.string()).parse(JSON.parse(readFileSync('build/_static_routes.json', 'utf8')));
-  for (let staticRoute of staticRoutes) {
+  for (const staticRoute of staticRoutes) {
     app.use(staticRoute, serveStatic({ root: 'build/' }));
   }
 }
 
-// Add the default endpoint for all the fallback.
-app.get('/*', (c) => c.html(html));
+// Add the frontend endpoint for all the fallback.
+app.use('/assets/*', serveStatic({ root: isProd ? 'build/' : './' })).get('/*', (c) => c.html(html));
 
 // Start the serving in production.
 if (isProd) {

@@ -3,7 +3,7 @@ import { resolve } from 'node:path';
 
 import devServer, { defaultOptions } from '@hono/vite-dev-server';
 import react from '@vitejs/plugin-react-swc';
-import { defineConfig, UserConfig, type Plugin, type ResolvedConfig } from 'vite';
+import { type Plugin, type ResolvedConfig, type UserConfig, defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
 // If you add new static resources, you may need to restart the vite for now.

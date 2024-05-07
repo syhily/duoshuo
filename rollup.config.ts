@@ -6,7 +6,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
 import { glob } from 'glob';
-import { RollupOptions } from 'rollup';
+import type { RollupOptions } from 'rollup';
 
 // Clean the local dist directory.
 export default {
@@ -28,7 +28,7 @@ export default {
     preserveModulesRoot: '.',
   },
   external(id: string) {
-    return id.includes(sep + 'node_modules' + sep);
+    return id.includes(`${sep}node_modules${sep}`);
   },
   plugins: [
     typescript({ moduleResolution: 'bundler', tsconfig: 'tsconfig.json' }),
