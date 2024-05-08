@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client';
 
 import App from '@/views/App';
 
+import '@/index.css';
+
 const root = document.getElementById('root');
 if (root == null) {
   throw new Error('a div with root id must be present in the dom.');

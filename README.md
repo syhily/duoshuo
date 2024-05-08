@@ -21,7 +21,7 @@ I love typed with zod which can pre-check everything before the execution.
 5. Tailwind: https://tailwindcss.com
 6. shadcn/ui: https://ui.shadcn.com
 7. Drizzle ORM: https://orm.drizzle.team
-8. MySQL (Cloud SaaS): https://zeabur.com/docs/marketplace/mysql
+8. MySQL 8.x (Cloud SaaS): https://zeabur.com/docs/marketplace/mysql
 
 ## Project Structure
 
@@ -57,7 +57,7 @@ I don't like SSR, and the existing SSR solutions such as Next.js, Remix, Waku ar
 
 The backend is an API server built on top of the Hono.js.
 Which means this application can be easily deployed to any edge runtimes or serverless solutions.
-But for now, it targets to zeabur which has the MySQL runtime internally.
+But for now, it targets to the zeabur which has the MySQL runtime internally.
 
 When you want to develop the project.
 Execute the command `npm run dev`, the backend and frontend are serving under the same port `4321` with HMR support.
@@ -81,7 +81,7 @@ The `.env.local` is used for local development while `.env.production.local` is 
 ## License
 
 The source code of this blog is licensed under the [MIT](./LICENSE) license,
-feel to free to use it without any legal risks.
+feel free to use it without any legal risks.
 
 The font used in logo is Super Peach Font,
 it's free for personal use and commercial use, but I couldn't find the license file.

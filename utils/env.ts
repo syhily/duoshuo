@@ -1,12 +1,6 @@
 import { createEnv } from '@t3-oss/env-core';
 import { z } from 'zod';
 
-const int = () =>
-  z
-    .string()
-    .transform((s) => Number.parseInt(s, 10))
-    .pipe(z.number().int());
-
 const nullableInt = (num: number) =>
   z
     .string()
@@ -14,10 +8,6 @@ const nullableInt = (num: number) =>
     .transform((s) => (s === null ? num : Number.parseInt(s, 10)))
     .pipe(z.number().int());
 
-// const boolean = z
-//   .string()
-//   .refine((s) => s === 'true' || s === 'false')
-//   .transform((s) => s === 'true');
 export const defaultTablePrefix = 'duoshuo_';
 
 export const env = createEnv({
@@ -28,10 +18,10 @@ export const env = createEnv({
 
     // The MySQL configuration, it's the same as the zeabur configuration.
     MYSQL_HOST: z.string(),
-    MYSQL_PORT: int(),
+    MYSQL_PORT: nullableInt(3306),
     MYSQL_USERNAME: z.string(),
     MYSQL_PASSWORD: z.string(),
-    MYSQL_DATABASE: z.string(),
+    MYSQL_DATABASE: z.string().default('duoshuo'),
   },
   runtimeEnv: process.env,
   isServer: typeof window === 'undefined',

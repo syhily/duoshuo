@@ -1,4 +1,4 @@
-import { bigint, mysqlTableCreator, serial, timestamp } from 'drizzle-orm/mysql-core';
+import { bigint, mysqlTableCreator, serial, timestamp, varchar } from 'drizzle-orm/mysql-core';
 
 import { defaultTablePrefix } from '@/utils/env';
 
@@ -21,4 +21,10 @@ const commonColumns = {
 // The comments' table for storing the users' comments.
 export const comments = mysqlTable('comments', {
   ...commonColumns,
+});
+
+export const configs = mysqlTable('configs', {
+  ...commonColumns,
+  name: varchar('name', { length: 128 }).notNull().unique(),
+  value: varchar('value', { length: 256 }).notNull(),
 });

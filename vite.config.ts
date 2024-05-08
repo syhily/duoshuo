@@ -39,6 +39,7 @@ export default defineConfig({
     port: env.PORT,
   },
   build: {
+    manifest: true,
     outDir: 'build',
   },
   plugins: [
