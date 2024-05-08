@@ -57,7 +57,7 @@ I don't like SSR, and the existing SSR solutions such as Next.js, Remix, Waku ar
 
 The backend is an API server built on top of the Hono.js.
 Which means this application can be easily deployed to any edge runtimes or serverless solutions.
-But for now, it targets to the zeabur which has the MySQL runtime internally.
+But for now, it targets to the zeabur, which has the MySQL runtime internally.
 
 When you want to develop the project.
 Execute the command `npm run dev`, the backend and frontend are serving under the same port `4321` with HMR support.

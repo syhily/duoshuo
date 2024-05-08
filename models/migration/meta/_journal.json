@@ -8,6 +8,13 @@
       "when": 1715106391678,
       "tag": "0000_little_yellow_claw",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1715162841719,
+      "tag": "0001_massive_red_hulk",
+      "breakpoints": true
     }
   ]
 }
