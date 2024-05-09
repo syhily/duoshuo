@@ -3,7 +3,7 @@ CREATE TABLE `duoshuo_comments` (
 	`create_time` timestamp NOT NULL DEFAULT (now()),
 	`update_time` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,
 	`deleted` bigint unsigned DEFAULT 0,
-	`user_id` bigint unsigned NOT NULL,
+	`mask_id` bigint unsigned NOT NULL,
 	`post_id` bigint unsigned NOT NULL,
 	`content` longtext,
 	`pending` boolean DEFAULT false,
@@ -100,7 +100,7 @@ CREATE TABLE `duoshuo_users_mask` (
 	CONSTRAINT `duoshuo_users_mask_id` PRIMARY KEY(`id`)
 );
 --> statement-breakpoint
-CREATE INDEX `comments_user_id_idx` ON `duoshuo_comments` (`user_id`);--> statement-breakpoint
+CREATE INDEX `comments_mask_id_idx` ON `duoshuo_comments` (`mask_id`);--> statement-breakpoint
 CREATE INDEX `comments_idx` ON `duoshuo_comments` (`deleted`,`post_id`,`thread_id`);--> statement-breakpoint
 CREATE INDEX `comments_parent_id_idx` ON `duoshuo_comments` (`parent_id`);--> statement-breakpoint
 CREATE INDEX `comments_like_comment_id_idx` ON `duoshuo_comments_like` (`comment_id`);--> statement-breakpoint

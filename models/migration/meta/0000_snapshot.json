@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "f8d4d41b-5b63-4e22-8932-ab01307b59a8",
+  "id": "f5f53ff1-2bd7-4e27-9cf0-09e4c3dc2306",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "duoshuo_comments": {
@@ -39,8 +39,8 @@
           "autoincrement": false,
           "default": 0
         },
-        "user_id": {
-          "name": "user_id",
+        "mask_id": {
+          "name": "mask_id",
           "type": "bigint unsigned",
           "primaryKey": false,
           "notNull": true,
@@ -122,9 +122,9 @@
         }
       },
       "indexes": {
-        "comments_user_id_idx": {
-          "name": "comments_user_id_idx",
-          "columns": ["user_id"],
+        "comments_mask_id_idx": {
+          "name": "comments_mask_id_idx",
+          "columns": ["mask_id"],
           "isUnique": false
         },
         "comments_idx": {

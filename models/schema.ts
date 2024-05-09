@@ -141,7 +141,7 @@ export const comments = mysqlTable(
   'comments',
   {
     ...logicDeleteColumns,
-    userId: bigint('user_id', primaryKey).notNull(),
+    maskId: bigint('mask_id', primaryKey).notNull(),
     postId: bigint('post_id', primaryKey).notNull(),
     content: longtext('content'),
     pending: boolean('pending').default(false),
@@ -154,7 +154,7 @@ export const comments = mysqlTable(
     threadId: bigint('thread_id', primaryKey),
   },
   (table) => ({
-    userIdIdx: index('comments_user_id_idx').on(table.userId),
+    maskIdIdx: index('comments_mask_id_idx').on(table.maskId),
     commentsIdx: index('comments_idx').on(table.deleted, table.postId, table.threadId),
     parentIdIdx: index('comments_parent_id_idx').on(table.parentId),
   }),
