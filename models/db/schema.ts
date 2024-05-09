@@ -1,3 +1,4 @@
+import { relations } from 'drizzle-orm';
 import {
   bigint,
   boolean,
@@ -176,3 +177,18 @@ export const commentsLike = mysqlTable(
     userIdIdx: index('comments_like_user_id_id').on(table.userId),
   }),
 );
+
+// Relations.
+export const usersRelations = relations(usersMask, ({ one }) => ({
+  user: one(users, {
+    fields: [usersMask.userId],
+    references: [users.id],
+  }),
+}));
+
+export const postsRelations = relations(postsIdentity, ({ one }) => ({
+  post: one(posts, {
+    fields: [postsIdentity.postId],
+    references: [posts.id],
+  }),
+}));

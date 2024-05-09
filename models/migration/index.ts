@@ -1,6 +1,6 @@
 import { migrate } from 'drizzle-orm/mysql2/migrator';
 
-import { db } from '@/models/index';
+import { db } from '@/models/db';
 import { defaultTablePrefix, isProd } from '@/utils/env';
 
 // The relative path is valid only through the npm start!!!

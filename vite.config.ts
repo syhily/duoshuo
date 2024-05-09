@@ -39,8 +39,10 @@ export default defineConfig({
     port: env.PORT,
   },
   build: {
+    target: 'modules',
     manifest: true,
     outDir: 'build',
+    assetsDir: 'assets',
   },
   plugins: [
     react(),

@@ -5,7 +5,7 @@ import { serveStatic } from '@hono/node-server/serve-static';
 import { Hono } from 'hono';
 import { z } from 'zod';
 
-import '@/models/migrate';
+import '@/models/migration';
 
 import { env, isProd } from '@/utils/env';
 

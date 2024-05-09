@@ -6,7 +6,7 @@ import { defaultTablePrefix, env } from '@/utils/env';
 
 export default {
   out: './models/migration',
-  schema: './models/schema.ts',
+  schema: './models/db/schema.ts',
   driver: 'mysql2',
   dbCredentials: {
     host: env.MYSQL_HOST,
