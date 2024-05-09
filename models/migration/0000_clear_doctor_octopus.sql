@@ -42,7 +42,7 @@ CREATE TABLE `duoshuo_posts` (
 	`create_time` timestamp NOT NULL DEFAULT (now()),
 	`update_time` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,
 	`deleted` bigint unsigned DEFAULT 0,
-	`title` text,
+	`title` varchar(512),
 	`request_path` varchar(512) NOT NULL,
 	`clicks` bigint unsigned DEFAULT 0,
 	`likes` bigint unsigned DEFAULT 0,
@@ -80,7 +80,7 @@ CREATE TABLE `duoshuo_users` (
 	`nick_name` varchar(64) NOT NULL,
 	`registered` boolean DEFAULT false,
 	`verified` boolean DEFAULT false,
-	`password` char(512),
+	`password` varchar(512),
 	`salt` varchar(128),
 	`admin` boolean DEFAULT false,
 	`friend` boolean DEFAULT false,
@@ -104,11 +104,13 @@ CREATE INDEX `comments_mask_id_idx` ON `duoshuo_comments` (`mask_id`);--> statem
 CREATE INDEX `comments_idx` ON `duoshuo_comments` (`deleted`,`post_id`,`thread_id`);--> statement-breakpoint
 CREATE INDEX `comments_parent_id_idx` ON `duoshuo_comments` (`parent_id`);--> statement-breakpoint
 CREATE INDEX `comments_like_comment_id_idx` ON `duoshuo_comments_like` (`comment_id`);--> statement-breakpoint
+CREATE INDEX `comments_like_anonymous_token_idx` ON `duoshuo_comments_like` (`anonymous_token`);--> statement-breakpoint
 CREATE INDEX `comments_like_user_id_id` ON `duoshuo_comments_like` (`user_id`);--> statement-breakpoint
 CREATE INDEX `posts_deleted_idx` ON `duoshuo_posts` (`deleted`);--> statement-breakpoint
 CREATE INDEX `posts_title_idx` ON `duoshuo_posts` (`title`);--> statement-breakpoint
 CREATE INDEX `posts_identity_post_id_idx` ON `duoshuo_posts_identity` (`post_id`);--> statement-breakpoint
 CREATE INDEX `posts_like_post_id_idx` ON `duoshuo_posts_like` (`post_id`);--> statement-breakpoint
+CREATE INDEX `posts_like_anonymous_token_idx` ON `duoshuo_posts_like` (`anonymous_token`);--> statement-breakpoint
 CREATE INDEX `posts_like_user_id_idx` ON `duoshuo_posts_like` (`user_id`);--> statement-breakpoint
 CREATE INDEX `users_deleted_idx` ON `duoshuo_users` (`deleted`);--> statement-breakpoint
 CREATE INDEX `users_mask_nick_name_idx` ON `duoshuo_users_mask` (`nick_name`);--> statement-breakpoint

@@ -55,7 +55,7 @@ export const users = mysqlTable(
     nickName: varchar('nick_name', { length: 64 }).notNull(),
     registered: boolean('registered').default(false),
     verified: boolean('verified').default(false),
-    password: char('password', { length: 512 }),
+    password: varchar('password', { length: 512 }),
     salt: varchar('salt', { length: 128 }),
     admin: boolean('admin').default(false),
     friend: boolean('friend').default(false),
@@ -91,7 +91,7 @@ export const posts = mysqlTable(
   'posts',
   {
     ...logicDeleteColumns,
-    title: text('title'),
+    title: varchar('title', { length: 512 }),
     requestPath: varchar('request_path', { length: 512 }).notNull().unique(),
     clicks: bigint('clicks', primaryKey).default(0),
     likes: bigint('likes', primaryKey).default(0),
@@ -132,6 +132,7 @@ export const postsLike = mysqlTable(
   },
   (table) => ({
     postIdIdx: index('posts_like_post_id_idx').on(table.postId),
+    anonymousTokenIdx: index('posts_like_anonymous_token_idx').on(table.anonymousToken),
     userIdIdx: index('posts_like_user_id_idx').on(table.userId),
   }),
 );
@@ -171,6 +172,7 @@ export const commentsLike = mysqlTable(
   },
   (table) => ({
     commentIdIdx: index('comments_like_comment_id_idx').on(table.commentId),
+    anonymousTokenIdx: index('comments_like_anonymous_token_idx').on(table.anonymousToken),
     userIdIdx: index('comments_like_user_id_id').on(table.userId),
   }),
 );

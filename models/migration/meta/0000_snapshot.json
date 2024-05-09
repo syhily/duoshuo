@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "f5f53ff1-2bd7-4e27-9cf0-09e4c3dc2306",
+  "id": "b90b1334-15cc-4a83-bb94-d9b7ea51f4d0",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "duoshuo_comments": {
@@ -202,6 +202,11 @@
           "columns": ["comment_id"],
           "isUnique": false
         },
+        "comments_like_anonymous_token_idx": {
+          "name": "comments_like_anonymous_token_idx",
+          "columns": ["anonymous_token"],
+          "isUnique": false
+        },
         "comments_like_user_id_id": {
           "name": "comments_like_user_id_id",
           "columns": ["user_id"],
@@ -311,7 +316,7 @@
         },
         "title": {
           "name": "title",
-          "type": "text",
+          "type": "varchar(512)",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
@@ -492,6 +497,11 @@
           "columns": ["post_id"],
           "isUnique": false
         },
+        "posts_like_anonymous_token_idx": {
+          "name": "posts_like_anonymous_token_idx",
+          "columns": ["anonymous_token"],
+          "isUnique": false
+        },
         "posts_like_user_id_idx": {
           "name": "posts_like_user_id_idx",
           "columns": ["user_id"],
@@ -574,7 +584,7 @@
         },
         "password": {
           "name": "password",
-          "type": "char(512)",
+          "type": "varchar(512)",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
