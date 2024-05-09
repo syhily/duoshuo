@@ -1,7 +1,7 @@
 import { eq, sql } from 'drizzle-orm';
 
 import { configs, db } from '@/models/db';
-import type { Void } from '@/models/types';
+import { failureResult, nullResult, singleResult, voidResult, type Result, type Void } from '@/models/types';
 
 const getConfigQuery = db.query.configs
   .findFirst({
@@ -9,9 +9,13 @@ const getConfigQuery = db.query.configs
   })
   .prepare();
 
-export const getConfig = async <T>(name: string): Promise<T | null> => {
-  const config = await getConfigQuery.execute({ name });
-  return config === undefined ? null : (config.value as T);
+export const getConfig = async <T>(name: string): Promise<Result<T>> => {
+  try {
+    const config = await getConfigQuery.execute({ name });
+    return config === undefined ? nullResult() : singleResult(config.value as T);
+  } catch (e: unknown) {
+    return failureResult(e);
+  }
 };
 
 const upsertConfigQuery = db
@@ -21,6 +25,10 @@ const upsertConfigQuery = db
   .prepare();
 
 export const upsertConfig = async <T>(name: string, value: T): Promise<Void> => {
-  await upsertConfigQuery.execute({ name, value });
-  return { ok: true };
+  try {
+    await upsertConfigQuery.execute({ name, value });
+  } catch (e: unknown) {
+    return failureResult(e);
+  }
+  return voidResult();
 };
