@@ -10,7 +10,9 @@ import type { RollupOptions } from 'rollup';
 import { cleandir } from 'rollup-plugin-cleandir';
 import copy from 'rollup-plugin-copy';
 
-// Clean the local dist directory.
+// Clean the local dist directory and transform the TS into js.
+// The js didn't get translated and copied into the dist directory, everything should be in TS.
+// TSX isn't supported in the meantime.
 export default {
   input: Object.fromEntries(
     glob
