@@ -8,8 +8,6 @@ const nullableInt = (num: number) =>
     .transform((s) => (s === null ? num : Number.parseInt(s, 10)))
     .pipe(z.number().int());
 
-export const defaultTablePrefix = 'duoshuo_';
-
 export const env = createEnv({
   server: {
     // The System configuration.

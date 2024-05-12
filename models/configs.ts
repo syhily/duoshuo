@@ -23,7 +23,7 @@ export const upsertConfig = async <T>(name: string, value: T): Promise<Void> => 
     await db
       .insert(configs)
       .values({ name: name, value: value })
-      .onConflictDoUpdate({ target: configs.id, set: { value: value } });
+      .onConflictDoUpdate({ target: configs.name, set: { value: value } });
   } catch (e: unknown) {
     return failureResult(e);
   }

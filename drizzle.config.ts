@@ -2,7 +2,7 @@ import type { Config } from 'drizzle-kit';
 
 import 'dotenv-flow/config';
 
-import { defaultTablePrefix, env } from '@/utils/env';
+import { env } from '@/utils/env';
 
 export default {
   out: './models/migration',
@@ -16,10 +16,9 @@ export default {
     database: env.POSTGRES_DATABASE,
   },
   migrations: {
-    table: `__${defaultTablePrefix}migration`,
+    table: '__duoshuo_migration',
     schema: 'duoshuo',
   },
   verbose: true,
   strict: true,
-  tablesFilter: [`${defaultTablePrefix}*`],
 } satisfies Config;
