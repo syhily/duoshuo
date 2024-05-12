@@ -1,54 +1,51 @@
 import { relations } from 'drizzle-orm';
 import {
   bigint,
+  bigserial,
   boolean,
   char,
   index,
-  json,
-  longtext,
-  mysqlTableCreator,
-  serial,
+  inet,
+  jsonb,
+  pgSchema,
   text,
   timestamp,
   varchar,
-} from 'drizzle-orm/mysql-core';
+} from 'drizzle-orm/pg-core';
 
-import { defaultTablePrefix } from '@/utils/env';
-
-/**
- * Add schema table prefix for sharing the database with other applications.
- * @see https://orm.drizzle.team/docs/goodies#multi-project-schema
- */
-const mysqlTable = mysqlTableCreator((name) => `${defaultTablePrefix}${name}`);
+export const schema = pgSchema('duoshuo');
 
 const primaryKey: { mode: 'number'; unsigned: boolean } = { mode: 'number', unsigned: true };
 
 // Common columns for all the tables used in the duoshuo.
 const commonColumns = {
-  id: serial('id').primaryKey(),
-  createTime: timestamp('create_time').notNull().defaultNow(),
-  updateTime: timestamp('update_time').notNull().defaultNow().onUpdateNow(),
+  id: bigserial('id', { mode: 'number' }).primaryKey(),
+  createTime: timestamp('create_time', { precision: 6, withTimezone: true }).notNull().defaultNow(),
+  updateTime: timestamp('update_time', { precision: 6, withTimezone: true })
+    .notNull()
+    .defaultNow()
+    .$onUpdate(() => new Date()),
 };
 
 const logicDeleteColumns = {
   ...commonColumns,
   // The 'deleted' column serves for logical deletion. A value of 0 indicates the record is active.
   // When a record is deleted, the 'deleted' column will store the timestamp of the deletion.
-  deleted: bigint('deleted', primaryKey).default(0),
+  deleted: timestamp('deleted', { precision: 6, withTimezone: true }),
 };
 
 // The configuration table for storing all the system configurations.
 // This table only supports upsert.
 // Deletion isn't allowed on this table.
-export const configs = mysqlTable('configs', {
+export const configs = schema.table('configs', {
   ...commonColumns,
   name: varchar('name', { length: 128 }).notNull().unique(),
-  value: json('value').notNull(),
+  value: jsonb('value').notNull(),
 });
 
 // The registered user and administrator.
 // If the user deleted his or her account, it can't be recovered because it's a logic deletion.
-export const users = mysqlTable(
+export const users = schema.table(
   'users',
   {
     ...logicDeleteColumns,
@@ -61,7 +58,7 @@ export const users = mysqlTable(
     admin: boolean('admin').default(false),
     friend: boolean('friend').default(false),
     homepage: varchar('homepage', { length: 256 }),
-    lastLoginIP: varchar('last_login_ip', { length: 16 }),
+    lastLoginIP: inet('last_login_ip'),
     lastLoginUA: text('last_login_ua'),
   },
   (table) => ({
@@ -74,7 +71,7 @@ export const users = mysqlTable(
 // We would like to define it as a mask for the user.
 // Anyone can have the mast freely but with only one limitation.
 // That is, you can't have more than two masks which is the same as others.
-export const usersMask = mysqlTable(
+export const usersMask = schema.table(
   'users_mask',
   {
     ...commonColumns,
@@ -88,7 +85,7 @@ export const usersMask = mysqlTable(
 );
 
 // Storing the posts' meta.
-export const posts = mysqlTable(
+export const posts = schema.table(
   'posts',
   {
     ...logicDeleteColumns,
@@ -106,7 +103,7 @@ export const posts = mysqlTable(
 // The mapping for the post's identity and the post's id.
 // We can add multiple identities to the same post id.
 // This is quite useful for migration and when the user changes the post's identity.
-export const postsIdentity = mysqlTable(
+export const postsIdentity = schema.table(
   'posts_identity',
   {
     ...logicDeleteColumns,
@@ -123,7 +120,7 @@ export const postsIdentity = mysqlTable(
 // We only store the anonymous like within a month by default.
 // The likes from login users will be kept forever.
 // The administrator can configure the storing time range for anonymous like.
-export const postsLike = mysqlTable(
+export const postsLike = schema.table(
   'posts_like',
   {
     ...commonColumns,
@@ -139,17 +136,17 @@ export const postsLike = mysqlTable(
 );
 
 // The comments' table for storing the users' comments.
-export const comments = mysqlTable(
+export const comments = schema.table(
   'comments',
   {
     ...logicDeleteColumns,
     maskId: bigint('mask_id', primaryKey).notNull(),
     postId: bigint('post_id', primaryKey).notNull(),
-    content: longtext('content'),
+    content: text('content'),
     pending: boolean('pending').default(false),
     collapsed: boolean('collapsed').default(false),
     pinned: boolean('pinned').default(false),
-    ip: varchar('ip', { length: 16 }),
+    ip: inet('ip'),
     ua: text('ua'),
     likes: bigint('likes', primaryKey).default(0),
     parentId: bigint('parent_id', primaryKey),
@@ -163,7 +160,7 @@ export const comments = mysqlTable(
 );
 
 // The optional like button for comments.
-export const commentsLike = mysqlTable(
+export const commentsLike = schema.table(
   'comments_like',
   {
     ...commonColumns,

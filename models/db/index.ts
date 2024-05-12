@@ -1,5 +1,5 @@
-import { drizzle } from 'drizzle-orm/mysql2';
-import { createPool, type Pool } from 'mysql2/promise';
+import { drizzle } from 'drizzle-orm/node-postgres';
+import pg from 'pg';
 
 import * as schema from '@/models/db/schema';
 import { env, isProd } from '@/utils/env';
@@ -8,20 +8,18 @@ import { env, isProd } from '@/utils/env';
  * Cache the database connection in development. This avoids creating a new connection on every HMR update.
  */
 const globalForDb = globalThis as unknown as {
-  conn: Pool | undefined;
+  conn: pg.Pool | undefined;
 };
 
 const conn =
   globalForDb.conn ??
-  createPool({
-    host: env.MYSQL_HOST,
-    port: env.MYSQL_PORT,
-    user: env.MYSQL_USERNAME,
-    password: env.MYSQL_PASSWORD,
-    database: env.MYSQL_DATABASE,
-    charset: 'utf8mb4',
-    enableKeepAlive: true,
-    isServer: isProd(),
+  new pg.Pool({
+    host: env.POSTGRES_HOST,
+    port: env.POSTGRES_PORT,
+    user: env.POSTGRES_USERNAME,
+    password: env.POSTGRES_PASSWORD,
+    database: env.POSTGRES_DATABASE,
+    keepAlive: true,
   });
 
 // Cache the connection.
@@ -32,7 +30,6 @@ if (!isProd()) {
 export const db = drizzle(conn, {
   logger: !isProd(), // Enable the log in development
   schema: schema,
-  mode: 'default',
 });
 
 export * from '@/models/db/schema';

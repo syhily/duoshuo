@@ -17,11 +17,11 @@ export const env = createEnv({
     PORT: nullableInt(4321),
 
     // The MySQL configuration, it's the same as the zeabur configuration.
-    MYSQL_HOST: z.string(),
-    MYSQL_PORT: nullableInt(3306),
-    MYSQL_USERNAME: z.string(),
-    MYSQL_PASSWORD: z.string(),
-    MYSQL_DATABASE: z.string().default('duoshuo'),
+    POSTGRES_HOST: z.string(),
+    POSTGRES_PORT: nullableInt(3306),
+    POSTGRES_USERNAME: z.string(),
+    POSTGRES_PASSWORD: z.string(),
+    POSTGRES_DATABASE: z.string().default('duoshuo'),
   },
   runtimeEnv: process.env,
   isServer: typeof window === 'undefined',

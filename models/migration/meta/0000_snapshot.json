@@ -1,71 +1,62 @@
 {
-  "version": "5",
-  "dialect": "mysql",
-  "id": "b90b1334-15cc-4a83-bb94-d9b7ea51f4d0",
+  "id": "3d89f30e-7e05-4186-ac39-d950ce2e6658",
   "prevId": "00000000-0000-0000-0000-000000000000",
+  "version": "6",
+  "dialect": "postgresql",
   "tables": {
-    "duoshuo_comments": {
-      "name": "duoshuo_comments",
+    "duoshuo.comments": {
+      "name": "comments",
+      "schema": "duoshuo",
       "columns": {
         "id": {
           "name": "id",
-          "type": "serial",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": true
+          "type": "bigserial",
+          "primaryKey": true,
+          "notNull": true
         },
         "create_time": {
           "name": "create_time",
-          "type": "timestamp",
+          "type": "timestamp (6) with time zone",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false,
-          "default": "(now())"
+          "default": "now()"
         },
         "update_time": {
           "name": "update_time",
-          "type": "timestamp",
+          "type": "timestamp (6) with time zone",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false,
-          "onUpdate": true,
-          "default": "(now())"
+          "default": "now()"
         },
         "deleted": {
           "name": "deleted",
-          "type": "bigint unsigned",
+          "type": "timestamp (6) with time zone",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false,
-          "default": 0
+          "notNull": false
         },
         "mask_id": {
           "name": "mask_id",
-          "type": "bigint unsigned",
+          "type": "bigint",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "post_id": {
           "name": "post_id",
-          "type": "bigint unsigned",
+          "type": "bigint",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "content": {
           "name": "content",
-          "type": "longtext",
+          "type": "text",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": false
         },
         "pending": {
           "name": "pending",
           "type": "boolean",
           "primaryKey": false,
           "notNull": false,
-          "autoincrement": false,
           "default": false
         },
         "collapsed": {
@@ -73,7 +64,6 @@
           "type": "boolean",
           "primaryKey": false,
           "notNull": false,
-          "autoincrement": false,
           "default": false
         },
         "pinned": {
@@ -81,44 +71,38 @@
           "type": "boolean",
           "primaryKey": false,
           "notNull": false,
-          "autoincrement": false,
           "default": false
         },
         "ip": {
           "name": "ip",
-          "type": "varchar(16)",
+          "type": "inet",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": false
         },
         "ua": {
           "name": "ua",
           "type": "text",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": false
         },
         "likes": {
           "name": "likes",
-          "type": "bigint unsigned",
+          "type": "bigint",
           "primaryKey": false,
           "notNull": false,
-          "autoincrement": false,
           "default": 0
         },
         "parent_id": {
           "name": "parent_id",
-          "type": "bigint unsigned",
+          "type": "bigint",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": false
         },
         "thread_id": {
           "name": "thread_id",
-          "type": "bigint unsigned",
+          "type": "bigint",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": false
         }
       },
       "indexes": {
@@ -139,61 +123,50 @@
         }
       },
       "foreignKeys": {},
-      "compositePrimaryKeys": {
-        "duoshuo_comments_id": {
-          "name": "duoshuo_comments_id",
-          "columns": ["id"]
-        }
-      },
+      "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "duoshuo_comments_like": {
-      "name": "duoshuo_comments_like",
+    "duoshuo.comments_like": {
+      "name": "comments_like",
+      "schema": "duoshuo",
       "columns": {
         "id": {
           "name": "id",
-          "type": "serial",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": true
+          "type": "bigserial",
+          "primaryKey": true,
+          "notNull": true
         },
         "create_time": {
           "name": "create_time",
-          "type": "timestamp",
+          "type": "timestamp (6) with time zone",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false,
-          "default": "(now())"
+          "default": "now()"
         },
         "update_time": {
           "name": "update_time",
-          "type": "timestamp",
+          "type": "timestamp (6) with time zone",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false,
-          "onUpdate": true,
-          "default": "(now())"
+          "default": "now()"
         },
         "comment_id": {
           "name": "comment_id",
-          "type": "bigint unsigned",
+          "type": "bigint",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "anonymous_token": {
           "name": "anonymous_token",
           "type": "char(128)",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": false
         },
         "user_id": {
           "name": "user_id",
-          "type": "bigint unsigned",
+          "type": "bigint",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": false
         }
       },
       "indexes": {
@@ -214,134 +187,111 @@
         }
       },
       "foreignKeys": {},
-      "compositePrimaryKeys": {
-        "duoshuo_comments_like_id": {
-          "name": "duoshuo_comments_like_id",
-          "columns": ["id"]
-        }
-      },
+      "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "duoshuo_configs": {
-      "name": "duoshuo_configs",
+    "duoshuo.configs": {
+      "name": "configs",
+      "schema": "duoshuo",
       "columns": {
         "id": {
           "name": "id",
-          "type": "serial",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": true
+          "type": "bigserial",
+          "primaryKey": true,
+          "notNull": true
         },
         "create_time": {
           "name": "create_time",
-          "type": "timestamp",
+          "type": "timestamp (6) with time zone",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false,
-          "default": "(now())"
+          "default": "now()"
         },
         "update_time": {
           "name": "update_time",
-          "type": "timestamp",
+          "type": "timestamp (6) with time zone",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false,
-          "onUpdate": true,
-          "default": "(now())"
+          "default": "now()"
         },
         "name": {
           "name": "name",
           "type": "varchar(128)",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "value": {
           "name": "value",
-          "type": "json",
+          "type": "jsonb",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         }
       },
       "indexes": {},
       "foreignKeys": {},
-      "compositePrimaryKeys": {
-        "duoshuo_configs_id": {
-          "name": "duoshuo_configs_id",
-          "columns": ["id"]
-        }
-      },
+      "compositePrimaryKeys": {},
       "uniqueConstraints": {
-        "duoshuo_configs_name_unique": {
-          "name": "duoshuo_configs_name_unique",
+        "configs_name_unique": {
+          "name": "configs_name_unique",
+          "nullsNotDistinct": false,
           "columns": ["name"]
         }
       }
     },
-    "duoshuo_posts": {
-      "name": "duoshuo_posts",
+    "duoshuo.posts": {
+      "name": "posts",
+      "schema": "duoshuo",
       "columns": {
         "id": {
           "name": "id",
-          "type": "serial",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": true
+          "type": "bigserial",
+          "primaryKey": true,
+          "notNull": true
         },
         "create_time": {
           "name": "create_time",
-          "type": "timestamp",
+          "type": "timestamp (6) with time zone",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false,
-          "default": "(now())"
+          "default": "now()"
         },
         "update_time": {
           "name": "update_time",
-          "type": "timestamp",
+          "type": "timestamp (6) with time zone",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false,
-          "onUpdate": true,
-          "default": "(now())"
+          "default": "now()"
         },
         "deleted": {
           "name": "deleted",
-          "type": "bigint unsigned",
+          "type": "timestamp (6) with time zone",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false,
-          "default": 0
+          "notNull": false
         },
         "title": {
           "name": "title",
           "type": "varchar(512)",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": false
         },
         "request_path": {
           "name": "request_path",
           "type": "varchar(512)",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "clicks": {
           "name": "clicks",
-          "type": "bigint unsigned",
+          "type": "bigint",
           "primaryKey": false,
           "notNull": false,
-          "autoincrement": false,
           "default": 0
         },
         "likes": {
           "name": "likes",
-          "type": "bigint unsigned",
+          "type": "bigint",
           "primaryKey": false,
           "notNull": false,
-          "autoincrement": false,
           "default": 0
         }
       },
@@ -358,67 +308,56 @@
         }
       },
       "foreignKeys": {},
-      "compositePrimaryKeys": {
-        "duoshuo_posts_id": {
-          "name": "duoshuo_posts_id",
-          "columns": ["id"]
-        }
-      },
+      "compositePrimaryKeys": {},
       "uniqueConstraints": {
-        "duoshuo_posts_request_path_unique": {
-          "name": "duoshuo_posts_request_path_unique",
+        "posts_request_path_unique": {
+          "name": "posts_request_path_unique",
+          "nullsNotDistinct": false,
           "columns": ["request_path"]
         }
       }
     },
-    "duoshuo_posts_identity": {
-      "name": "duoshuo_posts_identity",
+    "duoshuo.posts_identity": {
+      "name": "posts_identity",
+      "schema": "duoshuo",
       "columns": {
         "id": {
           "name": "id",
-          "type": "serial",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": true
+          "type": "bigserial",
+          "primaryKey": true,
+          "notNull": true
         },
         "create_time": {
           "name": "create_time",
-          "type": "timestamp",
+          "type": "timestamp (6) with time zone",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false,
-          "default": "(now())"
+          "default": "now()"
         },
         "update_time": {
           "name": "update_time",
-          "type": "timestamp",
+          "type": "timestamp (6) with time zone",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false,
-          "onUpdate": true,
-          "default": "(now())"
+          "default": "now()"
         },
         "deleted": {
           "name": "deleted",
-          "type": "bigint unsigned",
+          "type": "timestamp (6) with time zone",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false,
-          "default": 0
+          "notNull": false
         },
         "identity": {
           "name": "identity",
           "type": "varchar(128)",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "post_id": {
           "name": "post_id",
-          "type": "bigint unsigned",
+          "type": "bigint",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         }
       },
       "indexes": {
@@ -429,66 +368,56 @@
         }
       },
       "foreignKeys": {},
-      "compositePrimaryKeys": {
-        "duoshuo_posts_identity_id": {
-          "name": "duoshuo_posts_identity_id",
-          "columns": ["id"]
-        }
-      },
+      "compositePrimaryKeys": {},
       "uniqueConstraints": {
-        "duoshuo_posts_identity_identity_unique": {
-          "name": "duoshuo_posts_identity_identity_unique",
+        "posts_identity_identity_unique": {
+          "name": "posts_identity_identity_unique",
+          "nullsNotDistinct": false,
           "columns": ["identity"]
         }
       }
     },
-    "duoshuo_posts_like": {
-      "name": "duoshuo_posts_like",
+    "duoshuo.posts_like": {
+      "name": "posts_like",
+      "schema": "duoshuo",
       "columns": {
         "id": {
           "name": "id",
-          "type": "serial",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": true
+          "type": "bigserial",
+          "primaryKey": true,
+          "notNull": true
         },
         "create_time": {
           "name": "create_time",
-          "type": "timestamp",
+          "type": "timestamp (6) with time zone",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false,
-          "default": "(now())"
+          "default": "now()"
         },
         "update_time": {
           "name": "update_time",
-          "type": "timestamp",
+          "type": "timestamp (6) with time zone",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false,
-          "onUpdate": true,
-          "default": "(now())"
+          "default": "now()"
         },
         "post_id": {
           "name": "post_id",
-          "type": "bigint unsigned",
+          "type": "bigint",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "anonymous_token": {
           "name": "anonymous_token",
           "type": "char(128)",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": false
         },
         "user_id": {
           "name": "user_id",
-          "type": "bigint unsigned",
+          "type": "bigint",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": false
         }
       },
       "indexes": {
@@ -509,69 +438,56 @@
         }
       },
       "foreignKeys": {},
-      "compositePrimaryKeys": {
-        "duoshuo_posts_like_id": {
-          "name": "duoshuo_posts_like_id",
-          "columns": ["id"]
-        }
-      },
+      "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "duoshuo_users": {
-      "name": "duoshuo_users",
+    "duoshuo.users": {
+      "name": "users",
+      "schema": "duoshuo",
       "columns": {
         "id": {
           "name": "id",
-          "type": "serial",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": true
+          "type": "bigserial",
+          "primaryKey": true,
+          "notNull": true
         },
         "create_time": {
           "name": "create_time",
-          "type": "timestamp",
+          "type": "timestamp (6) with time zone",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false,
-          "default": "(now())"
+          "default": "now()"
         },
         "update_time": {
           "name": "update_time",
-          "type": "timestamp",
+          "type": "timestamp (6) with time zone",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false,
-          "onUpdate": true,
-          "default": "(now())"
+          "default": "now()"
         },
         "deleted": {
           "name": "deleted",
-          "type": "bigint unsigned",
+          "type": "timestamp (6) with time zone",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false,
-          "default": 0
+          "notNull": false
         },
         "email": {
           "name": "email",
           "type": "varchar(256)",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "nick_name": {
           "name": "nick_name",
           "type": "varchar(64)",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "registered": {
           "name": "registered",
           "type": "boolean",
           "primaryKey": false,
           "notNull": false,
-          "autoincrement": false,
           "default": false
         },
         "verified": {
@@ -579,29 +495,25 @@
           "type": "boolean",
           "primaryKey": false,
           "notNull": false,
-          "autoincrement": false,
           "default": false
         },
         "password": {
           "name": "password",
           "type": "varchar(512)",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": false
         },
         "salt": {
           "name": "salt",
           "type": "varchar(128)",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": false
         },
         "admin": {
           "name": "admin",
           "type": "boolean",
           "primaryKey": false,
           "notNull": false,
-          "autoincrement": false,
           "default": false
         },
         "friend": {
@@ -609,29 +521,25 @@
           "type": "boolean",
           "primaryKey": false,
           "notNull": false,
-          "autoincrement": false,
           "default": false
         },
         "homepage": {
           "name": "homepage",
           "type": "varchar(256)",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": false
         },
         "last_login_ip": {
           "name": "last_login_ip",
-          "type": "varchar(16)",
+          "type": "inet",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": false
         },
         "last_login_ua": {
           "name": "last_login_ua",
           "type": "text",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": false
         }
       },
       "indexes": {
@@ -642,59 +550,50 @@
         }
       },
       "foreignKeys": {},
-      "compositePrimaryKeys": {
-        "duoshuo_users_id": {
-          "name": "duoshuo_users_id",
-          "columns": ["id"]
-        }
-      },
+      "compositePrimaryKeys": {},
       "uniqueConstraints": {
-        "duoshuo_users_email_unique": {
-          "name": "duoshuo_users_email_unique",
+        "users_email_unique": {
+          "name": "users_email_unique",
+          "nullsNotDistinct": false,
           "columns": ["email"]
         }
       }
     },
-    "duoshuo_users_mask": {
-      "name": "duoshuo_users_mask",
+    "duoshuo.users_mask": {
+      "name": "users_mask",
+      "schema": "duoshuo",
       "columns": {
         "id": {
           "name": "id",
-          "type": "serial",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": true
+          "type": "bigserial",
+          "primaryKey": true,
+          "notNull": true
         },
         "create_time": {
           "name": "create_time",
-          "type": "timestamp",
+          "type": "timestamp (6) with time zone",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false,
-          "default": "(now())"
+          "default": "now()"
         },
         "update_time": {
           "name": "update_time",
-          "type": "timestamp",
+          "type": "timestamp (6) with time zone",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false,
-          "onUpdate": true,
-          "default": "(now())"
+          "default": "now()"
         },
         "nick_name": {
           "name": "nick_name",
           "type": "varchar(64)",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "user_id": {
           "name": "user_id",
-          "type": "bigint unsigned",
+          "type": "bigint",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         }
       },
       "indexes": {
@@ -710,19 +609,17 @@
         }
       },
       "foreignKeys": {},
-      "compositePrimaryKeys": {
-        "duoshuo_users_mask_id": {
-          "name": "duoshuo_users_mask_id",
-          "columns": ["id"]
-        }
-      },
+      "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     }
   },
-  "schemas": {},
+  "enums": {},
+  "schemas": {
+    "duoshuo": "duoshuo"
+  },
   "_meta": {
+    "columns": {},
     "schemas": {},
-    "tables": {},
-    "columns": {}
+    "tables": {}
   }
 }

@@ -1,12 +1,12 @@
 {
-  "version": "5",
-  "dialect": "mysql",
+  "version": "6",
+  "dialect": "postgresql",
   "entries": [
     {
       "idx": 0,
-      "version": "5",
-      "when": 1715254716788,
-      "tag": "0000_clear_doctor_octopus",
+      "version": "6",
+      "when": 1715521871262,
+      "tag": "0000_init_duoshuo_database",
       "breakpoints": true
     }
   ]

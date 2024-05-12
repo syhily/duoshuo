@@ -7,13 +7,17 @@ import { defaultTablePrefix, env } from '@/utils/env';
 export default {
   out: './models/migration',
   schema: './models/db/schema.ts',
-  driver: 'mysql2',
+  dialect: 'postgresql',
   dbCredentials: {
-    host: env.MYSQL_HOST,
-    port: env.MYSQL_PORT,
-    user: env.MYSQL_USERNAME,
-    password: env.MYSQL_PASSWORD,
-    database: env.MYSQL_DATABASE,
+    host: env.POSTGRES_HOST,
+    port: env.POSTGRES_PORT,
+    user: env.POSTGRES_USERNAME,
+    password: env.POSTGRES_PASSWORD,
+    database: env.POSTGRES_DATABASE,
+  },
+  migrations: {
+    table: `__${defaultTablePrefix}migration`,
+    schema: 'duoshuo',
   },
   verbose: true,
   strict: true,

@@ -21,7 +21,7 @@ I love typed with zod which can pre-check everything before the execution.
 5. Tailwind: https://tailwindcss.com
 6. shadcn/ui: https://ui.shadcn.com
 7. Drizzle ORM: https://orm.drizzle.team
-8. MySQL 8.x (Cloud SaaS): https://zeabur.com/docs/marketplace/mysql
+8. PostgreSQL 16.x
 
 ## Project Structure
 
@@ -77,6 +77,27 @@ Copy the default `.env.example` file,
 rename it to `.env.local` and `.env.production.local` which will be ignored by the git.
 Change the content as your needs.
 The `.env.local` is used for local development while `.env.production.local` is used for production.
+
+### Prepare PostgreSQL database
+
+The Postgres schema for the duoshuo project to use is `duoshuo`.
+
+```postgresql
+-- Create a database
+CREATE DATABASE <db>;
+
+-- Create a user
+CREATE USER <db_user> PASSWORD '<StrongPassword!>';
+
+-- Grant the connection
+GRANT CONNECT ON DATABASE <db> TO <db_user>;
+
+-- Grant the database privilege
+GRANT ALL PRIVILEGES ON DATABASE <db> TO <db_user>;
+
+-- Grant the duoshuo schema
+GRANT SELECT ON ALL TABLES IN SCHEMA 'duoshuo' TO <db_user>;
+```
 
 ## License
 

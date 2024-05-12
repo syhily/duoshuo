@@ -7,7 +7,7 @@ const getConfigQuery = db.query.configs
   .findFirst({
     where: eq(configs.name, sql.placeholder('name')),
   })
-  .prepare();
+  .prepare('getConfigQuery');
 
 export const getConfig = async <T>(name: string): Promise<Result<T>> => {
   try {
@@ -18,15 +18,12 @@ export const getConfig = async <T>(name: string): Promise<Result<T>> => {
   }
 };
 
-const upsertConfigQuery = db
-  .insert(configs)
-  .values({ name: sql.placeholder('name'), value: sql.placeholder('value') })
-  .onDuplicateKeyUpdate({ set: { value: sql.placeholder('value') } })
-  .prepare();
-
 export const upsertConfig = async <T>(name: string, value: T): Promise<Void> => {
   try {
-    await upsertConfigQuery.execute({ name, value });
+    await db
+      .insert(configs)
+      .values({ name: name, value: value })
+      .onConflictDoUpdate({ target: configs.id, set: { value: value } });
   } catch (e: unknown) {
     return failureResult(e);
   }
