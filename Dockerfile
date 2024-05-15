@@ -6,10 +6,11 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
 ADD . .
+ADD .env.example .env
 
 RUN npm ci && \
-    npm run build && \
-    npm prune --production
+    SKIP_ENV_VALIDATION='development' npm run build && \
+    npm prune --omit=dev
 
 FROM base AS runner
 WORKDIR /app

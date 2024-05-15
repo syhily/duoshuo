@@ -1,0 +1,16 @@
+.husky/
+.idea/
+.run/
+build/
+dist/
+node_modules/
+
+.editorconfig
+.env.*.local
+.env.local
+.gitattributes
+.gitignore
+.prettierignore
+.prettierrc
+LICENSE
+README.md

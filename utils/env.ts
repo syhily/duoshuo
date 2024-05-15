@@ -24,6 +24,7 @@ export const env = createEnv({
   runtimeEnv: process.env,
   isServer: typeof window === 'undefined',
   emptyStringAsUndefined: true,
+  skipValidation: process.env.SKIP_ENV_VALIDATION === 'development',
 });
 
 export const isProd = () => env.NODE_ENV === 'production';
