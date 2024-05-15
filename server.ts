@@ -2,30 +2,21 @@ import { readFileSync } from 'node:fs';
 
 import { serve } from '@hono/node-server';
 import { serveStatic } from '@hono/node-server/serve-static';
-import { Hono } from 'hono';
 import { z } from 'zod';
 
 import '@/models/migration';
 
+import { createServer } from '@/api/server';
 import { env, isProd } from '@/utils/env';
 
-// Create Hono route.
-const app = new Hono();
-
-// Define your custom routes here.
-// TODO
-
-// Add powered by header.
-app.use('*', async (c, next) => {
-  await next();
-  c.res.headers.append('X-Powered-By', 'Hono');
-});
+// Create Hono instance.
+const server = createServer();
 
 // Add the static resource here by using the generated _static_routes.json.
 if (isProd()) {
   const staticRoutes = z.array(z.string()).parse(JSON.parse(readFileSync('build/_static_routes.json', 'utf8')));
   for (const staticRoute of staticRoutes) {
-    app.use(staticRoute, serveStatic({ root: 'build/' }));
+    server.use(staticRoute, serveStatic({ root: 'build/' }));
   }
 }
 
@@ -39,6 +30,7 @@ if (!isProd()) {
     '<head>',
     `
   <head>
+    <!-- This snippet is copied from https://vitejs.dev/guide/backend-integration.html -->
     <script type="module">
       import RefreshRuntime from "/@react-refresh"
       RefreshRuntime.injectIntoGlobalHook(window)
@@ -53,14 +45,14 @@ if (!isProd()) {
 }
 
 // Add the frontend endpoint for all the fallback.
-app.use('/assets/*', serveStatic({ root: isProd() ? 'build/' : './' })).get('/*', (c) => c.html(html));
+server.use('/assets/*', serveStatic({ root: isProd() ? 'build/' : './' })).get('/*', (c) => c.html(html));
 
 // Start the serving in production.
 if (isProd()) {
-  serve({ ...app, port: env.PORT }, (info) => {
+  serve({ ...server, port: env.PORT }, (info) => {
     console.log(`Listening on http://localhost:${info.port}`);
   });
 }
 
 // This export is mainly used by the @hono/vite-dev-server.
-export default app;
+export default server;

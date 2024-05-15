@@ -1,4 +1,4 @@
-# DuoShuo Installation
+# Installation Design
 
 Given that the duoshuo is a prebuilt docker image with the minial configurations from environment variables for the Postgres database.
 We are here to design the workflow
